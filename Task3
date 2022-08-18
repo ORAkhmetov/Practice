@@ -1,0 +1,77 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Task33 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = Integer.parseInt(in.nextLine());
+        String [] temp = new String[n];
+        int [] data = new int[n];
+        temp = in.nextLine().split(" ");
+        for (int i = 0; i < n; i++) {
+            data[i] = Integer.parseInt(temp[i]);
+        }
+        int sizeplus = 0;
+        int sizeminus = 0;
+        if (n % 2 == 0) {
+            sizeplus = n/2;
+            sizeminus = n/2;
+        } else {
+            sizeplus = n/2+1;
+            sizeminus = n/2;
+        }
+        int [] plus = new int[sizeplus];
+        int [] minus = new int[sizeminus];
+
+        for (int i = 0; i < plus.length; i++) {
+            plus[i] = data[2 * i];
+        }
+        for (int i = 0; i < minus.length; i++) {
+            minus[i] = data[2 * i+1];
+        }
+        Arrays.sort(plus);
+        Arrays.sort(minus);
+        int [] datatemp = new int[n];
+        for (int i = 0; i < data.length; i++) {
+            datatemp[i] = data[i];
+        }
+        for (int i = 0; i < n; i++) { //Ищем максимальный плюс и минимальный минус и меняем местами
+            if (i % 2 == 0 && data[i] == plus[plus.length-1]) {
+                datatemp[i] = minus[0];
+            }
+            if (i % 2 == 1 && data[i] == minus[0]){
+                datatemp[i] = plus[plus.length-1];
+            }
+        }
+        int prof1 = calcprof(datatemp);
+        for (int i = 0; i < data.length; i++) {
+            datatemp[i] = data[i];
+        }
+        for (int i = 0; i < n; i++) { //Ищем максимальный минус и минимальный плюс и меняем местами
+            if (i % 2 == 0 && data[i] == plus[0]) {
+                datatemp[i] = minus[minus.length-1];
+            }
+            if (i % 2 == 1 && data[i] == minus[minus.length-1]){
+                datatemp[i] = plus[0];
+            }
+        }
+        int prof2 = calcprof(datatemp);
+
+        if (prof2 >= prof1) {
+            System.out.println(prof2);
+        } else {
+            System.out.println(prof1);
+        }
+    }
+    public static int calcprof (int [] data) {
+        int profit = 0;
+        for (int i = 0; i < data.length; i++) {
+            if (i % 2 == 0) {
+                profit = profit + data[i];
+            } else {
+                profit = profit - data[i];
+            }
+        }
+        return profit;
+    }
+}
