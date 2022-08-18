@@ -1,0 +1,39 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Task11 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int x [] = new int[4];
+        int y [] = new int[4];
+        String [] temp = new String[4];
+        String [] temp2 = new String[4];
+        temp = in.nextLine().split(" ");
+        temp2 = in.nextLine().split(" ");
+        for (int i = 0; i < 2; i++) {
+            x[i] = Integer.parseInt(temp[2*i]);
+            x[i+2]=Integer.parseInt(temp2[2*i]);
+        }
+        for (int i = 0; i < 2; i++) {
+            y[i] = Integer.parseInt(temp[2*i+1]);
+            y[i+2]=Integer.parseInt(temp2[2*i+1]);
+        }
+        int[] maxdelta = new int[12];
+        maxdelta[0] = Math.abs(x[0]-x[1]);
+        maxdelta[1] = Math.abs(x[0]-x[2]);
+        maxdelta[2] = Math.abs(x[0]-x[3]);
+        maxdelta[3] = Math.abs(x[1]-x[2]);
+        maxdelta[4] = Math.abs(x[1]-x[3]);
+        maxdelta[5] = Math.abs(x[2]-x[3]);
+        maxdelta[6] = Math.abs(y[0]-y[1]);
+        maxdelta[7] = Math.abs(y[0]-y[2]);
+        maxdelta[8] = Math.abs(y[0]-y[3]);
+        maxdelta[9] = Math.abs(y[1]-y[2]);
+        maxdelta[10] = Math.abs(y[1]-y[3]);
+        maxdelta[11] = Math.abs(y[2]-y[3]);
+        Arrays.sort(maxdelta);
+        System.out.println(maxdelta[maxdelta.length-1]*maxdelta[maxdelta.length-1]);
+
+
+    }
+}
